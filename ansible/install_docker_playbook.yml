@@ -1,0 +1,44 @@
+-
+  name: Install and Configure Docker on EC2
+  hosts: web
+  become: yes
+
+  tasks: 
+    -name: update package
+     yum: 
+      name: "*"
+      state: latest
+
+    -name: Install Docker
+     yum:
+        name: docker
+        state: present
+    
+    -name: Add ec2-user to docker group
+     user:
+        name: ec2-user
+        groups: docker
+        append: yes
+    
+    -name: Create app directory
+     file:
+        path: /home/ec2-user/app
+        state: directory
+        mode: '0755'
+    
+    -name: Copy app files
+     copy:
+      src: ../src/
+      dest: /home/ec2-user/app/
+    
+    -name: Build Docker image
+     command: docker build -t cicdapp /home/ec2-user/app/
+     args:
+      chdir: /home/ec2-user/app/
+    
+    -name: Stop and remove existing container (if running)
+     command: docker rm -f cicdapp-container
+     ignore_errors: yes
+    
+    -name: Run Docker container
+     command: docker run -d -p 80:80 --name cicdapp-container cicdapp

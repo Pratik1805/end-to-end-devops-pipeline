@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevOps CI/CD Pipeline</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      text-align: center;
+      max-width: 900px;
+      padding: 40px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      background: linear-gradient(90deg, #38bdf8, #6366f1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    p {
+      color: #cbd5f5;
+      margin-bottom: 25px;
+    }
+
+    /* PIPELINE */
+    .pipeline {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 40px 0;
+      position: relative;
+    }
+
+    .step {
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .circle {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: #1e293b;
+      border: 2px solid #38bdf8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      margin: auto;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(56,189,248,0.7); }
+      70% { box-shadow: 0 0 0 15px rgba(56,189,248,0); }
+      100% { box-shadow: 0 0 0 0 rgba(56,189,248,0); }
+    }
+
+    .label {
+      margin-top: 10px;
+      font-size: 0.85rem;
+      color: #94a3b8;
+    }
+
+    /* LINE */
+    .line {
+      position: absolute;
+      top: 30px;
+      left: 5%;
+      width: 90%;
+      height: 4px;
+      background: rgba(255,255,255,0.1);
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .progress {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, #22c55e, #38bdf8);
+      animation: move 6s linear infinite;
+    }
+
+    @keyframes move {
+      0% { width: 0; }
+      100% { width: 100%; }
+    }
+
+    /* BADGES */
+    .badge {
+      display: inline-block;
+      padding: 8px 15px;
+      margin: 5px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.1);
+      font-size: 0.9rem;
+    }
+
+    /* BUTTON */
+    .btn {
+      display: inline-block;
+      margin-top: 25px;
+      padding: 12px 25px;
+      border-radius: 30px;
+      background: linear-gradient(90deg, #22c55e, #16a34a);
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba(34,197,94,0.6);
+    }
+
+    footer {
+      margin-top: 30px;
+      font-size: 0.8rem;
+      color: #64748b;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <h1>🚀 DevOps CI/CD Pipeline</h1>
+
+    <p>
+      Automated deployment using Terraform, Jenkins, Ansible & Docker on AWS
+    </p>
+
+    <!-- PIPELINE -->
+    <div class="pipeline">
+
+      <div class="line">
+        <div class="progress"></div>
+      </div>
+
+      <div class="step">
+        <div class="circle">Git</div>
+        <div class="label">GitHub</div>
+      </div>
+
+      <div class="step">
+        <div class="circle">CI</div>
+        <div class="label">Jenkins</div>
+      </div>
+
+      <div class="step">
+        <div class="circle">IaC</div>
+        <div class="label">Terraform</div>
+      </div>
+
+      <div class="step">
+        <div class="circle">Cloud</div>
+        <div class="label">AWS EC2</div>
+      </div>
+
+      <div class="step">
+        <div class="circle">Cfg</div>
+        <div class="label">Ansible</div>
+      </div>
+
+      <div class="step">
+        <div class="circle">App</div>
+        <div class="label">Docker</div>
+      </div>
+
+    </div>
+
+    <!-- TECH STACK -->
+    <div>
+      <span class="badge">Terraform</span>
+      <span class="badge">Jenkins</span>
+      <span class="badge">Ansible</span>
+      <span class="badge">Docker</span>
+      <span class="badge">AWS</span>
+    </div>
+
+    <!-- BUTTON -->
+    <a href="https://github.com/Pratik1805" target="_blank" class="btn">
+      🔗 View My GitHub
+    </a>
+
+    <footer>
+      Built with ❤️ using DevOps Automation
+    </footer>
+
+  </div>
+
+</body>
+</html>
