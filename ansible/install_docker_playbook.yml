@@ -1,44 +1,54 @@
--
-  name: Install and Configure Docker on EC2
+---
+- name: Install and Configure Docker on EC2
   hosts: web
   become: yes
 
-  tasks: 
-    -name: update package
-     yum: 
-      name: "*"
-      state: latest
+  tasks:
+    - name: Update all packages
+      yum:
+        name: "*"
+        state: latest
 
-    -name: Install Docker
-     yum:
+    - name: Install Docker
+      yum:
         name: docker
         state: present
-    
-    -name: Add ec2-user to docker group
-     user:
+
+    - name: Ensure Docker service is started and enabled
+      service:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Add ec2-user to docker group
+      user:
         name: ec2-user
         groups: docker
         append: yes
-    
-    -name: Create app directory
-     file:
+
+    - name: Create app directory
+      file:
         path: /home/ec2-user/app
         state: directory
+        owner: ec2-user
+        group: ec2-user
         mode: '0755'
-    
-    -name: Copy app files
-     copy:
-      src: ../src/
-      dest: /home/ec2-user/app/
-    
-    -name: Build Docker image
-     command: docker build -t cicdapp /home/ec2-user/app/
-     args:
-      chdir: /home/ec2-user/app/
-    
-    -name: Stop and remove existing container (if running)
-     command: docker rm -f cicdapp-container
-     ignore_errors: yes
-    
-    -name: Run Docker container
-     command: docker run -d -p 80:80 --name cicdapp-container cicdapp
+
+    - name: Copy app files
+      copy:
+        src: ../src/
+        dest: /home/ec2-user/app/
+        owner: ec2-user
+        group: ec2-user
+
+    - name: Build Docker image
+      command: docker build -t cicdapp .
+      args:
+        chdir: /home/ec2-user/app/
+
+    - name: Stop and remove existing container (if running)
+      shell: docker ps -q --filter "name=cicdapp-container" && docker rm -f cicdapp-container || true
+      ignore_errors: yes
+
+    - name: Run Docker container
+      command: docker run -d -p 80:80 --name cicdapp-container cicdapp
